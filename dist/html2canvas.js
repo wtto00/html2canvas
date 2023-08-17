@@ -1,5 +1,5 @@
 /*!
- * html2canvas 1.4.1 <https://html2canvas.hertzen.com>
+ * html2canvas 1.4.2 <https://html2canvas.hertzen.com>
  * Copyright (c) 2023 wtto00 <https://github.com/wtto00>
  * Released under MIT License
  */
