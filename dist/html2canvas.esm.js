@@ -1,5 +1,5 @@
 /*!
- * html2canvas 1.4.2 <https://html2canvas.hertzen.com>
+ * html2canvas 1.4.3 <https://html2canvas.hertzen.com>
  * Copyright (c) 2023 wtto00 <https://github.com/wtto00>
  * Released under MIT License
  */
@@ -6823,13 +6823,15 @@ var CanvasRenderer = /** @class */ (function (_super) {
         });
     };
     CanvasRenderer.prototype.renderReplacedElement = function (container, curves, image) {
-        if (image && container.intrinsicWidth > 0 && container.intrinsicHeight > 0) {
+        var intrinsicWidth = image.naturalWidth || container.intrinsicWidth;
+        var intrinsicHeight = image.naturalHeight || container.intrinsicHeight;
+        if (image && intrinsicWidth > 0 && intrinsicHeight > 0) {
             var box = contentBox(container);
             var path = calculatePaddingBoxPath(curves);
             this.path(path);
             this.ctx.save();
             this.ctx.clip();
-            var sx = 0, sy = 0, sw = container.intrinsicWidth, sh = container.intrinsicHeight, dx = box.left, dy = box.top, dw = box.width, dh = box.height;
+            var sx = 0, sy = 0, sw = intrinsicWidth, sh = intrinsicHeight, dx = box.left, dy = box.top, dw = box.width, dh = box.height;
             var objectFit = container.styles.objectFit;
             var boxRatio = dw / dh;
             var imgRatio = sw / sh;
@@ -6846,11 +6848,11 @@ var CanvasRenderer = /** @class */ (function (_super) {
             else if (objectFit === 4 /* COVER */) {
                 if (imgRatio > boxRatio) {
                     sw = sh * boxRatio;
-                    sx += (container.intrinsicWidth - sw) / 2;
+                    sx += (intrinsicWidth - sw) / 2;
                 }
                 else {
                     sh = sw / boxRatio;
-                    sy += (container.intrinsicHeight - sh) / 2;
+                    sy += (intrinsicHeight - sh) / 2;
                 }
             }
             else if (objectFit === 8 /* NONE */) {
